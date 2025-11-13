@@ -1,4 +1,4 @@
-import Clientes from '../model/petShop.js'
+import Clientes from '../model/clientes.js'
 
 
 class ServiceCliente {

@@ -1,12 +1,13 @@
-import ServiceCliente from '../service/petShop.js'
+import ServicePet from '../service/pets.js'
 
 
-class ControllerCliente {
-    async FindAll(req, res) {
+
+class ControllerPets {
+    async FindAll(_, res) { //se o parametro nao for usado, colocar _ no lugar
         try {
-            const cliente = await ServiceCliente.FindAll()
+            const pets = await ServicePet.FindAll()
             res.status(200).send(
-                { data: cliente }
+                { data: pets }
             )
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
@@ -15,9 +16,9 @@ class ControllerCliente {
     async FindOne(req, res) {
         try {
             const id = req.params.id
-            const cliente = await ServiceCliente.FindOne(id)
+            const pets = await ServicePet.FindOne(id)
             res.status(200).send(
-                { data: cliente }
+                { data: pets }
             )
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
@@ -25,8 +26,8 @@ class ControllerCliente {
     }
     async Create(req, res) {
         try {
-            const { nome, telefone } = req.body
-            await ServiceCliente.Create(nome, telefone)
+            const { nome, tutor, raca } = req.body
+            await ServicePet.Create(nome, tutor, raca)
             res.status(200).send(
                 { msg: 'criado' }
             )
@@ -39,9 +40,10 @@ class ControllerCliente {
             const id = req.params.id
 
             const nome = req.body?.nome
-            const telefone = req.body?.telefone
+            const tutor = req.body?.tutor
+            const raca = req.body?.raca
 
-            await ServiceCliente.Update(id, nome, telefone)
+            await ServicePet.Update(id, nome, tutor, raca)
 
                 res.status(200).send(
                     {msg:'alterado com sucesso'}
@@ -53,9 +55,9 @@ class ControllerCliente {
     async Delete(req, res) {
         try {
             const id = req.params.id
-            const cliente = await ServiceCliente.Delete(id)
+            const pets = await ServicePet.Delete(id)
             res.status(204).send(
-                { data: cliente }
+                { data: pets }
             )
             res.status(200).send(
                 {msg:'deletado com sucesso'}
@@ -66,4 +68,4 @@ class ControllerCliente {
     }
 }
 
-export default new ControllerCliente()
+export default new ControllerPets()

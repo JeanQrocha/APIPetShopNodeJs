@@ -1,12 +1,13 @@
 import express from 'express'
 import database from './config/database.js';
-import router from './routes/petShop.js'
+import routerClientes from './routes/clientes.js'
+import routerCachorros from './routes/pets.js'
 
 
 const app = express();
 
 app.use(express.json())
-app.use('/api/v1', router)
+app.use('/api/v1', routerClientes, routerCachorros)
 
 const port = 3000
 
