@@ -42,7 +42,6 @@ class ServiceCliente {
         if (!id) {
             throw new Error('Favor preencher todas as informaçoes')
         }
-
         const clienteVelho = await Clientes.findByPk(id)
 
         if (!clienteVelho) {

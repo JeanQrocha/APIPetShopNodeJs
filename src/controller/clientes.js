@@ -44,9 +44,18 @@ class ControllerCliente {
                 { msg: 'criado' }
             )
         } catch (error) {
+
+        // verifica se o erro é de violação de unicidade
+        if (error.name === "SequelizeUniqueConstraintError") {
+            return res.status(409).send({
+                msg: "Telefone já está cadastrado!"
+            });
+        }
+
             res.status(500).send({ msg: error.menssage })
         }
     }
+
     async Update(req, res) {
         try {
             const id = req.params.id
@@ -60,6 +69,14 @@ class ControllerCliente {
                 { msg: 'alterado com sucesso' }
             )
         } catch (error) {
+
+        // verifica se o erro é de violação de unicidade
+        if (error.name === "SequelizeUniqueConstraintError") {
+            return res.status(409).send({
+                msg: "Telefone já está cadastrado!"
+            });
+        }
+
             res.status(500).send({ msg: error.menssage })
         }
     }
