@@ -2,16 +2,20 @@ import Clientes from '../model/clientes.js'
 
 
 class ServiceCliente {
-    async FindAll() {
-        return Clientes.findAll()
+    async FindAll(options = {}) {
+
+        const clientes = await Clientes.findAll(options);
+
+        return clientes
+
     }
 
 
-    async FindOne(id) {
+    async FindOne(id, options = {}) {
         if (!id) {
             throw new Error("Favor informar um ID");
         }
-        const cliente = await Clientes.findByPk(id)
+        const cliente = await Clientes.findByPk(id, options)
 
         if (!cliente) {
             throw new Error(`Produto ${id} não encontrado`);
@@ -35,26 +39,26 @@ class ServiceCliente {
 
 
     async Update(id, nome, telefone) {
-          if (!id) {
+        if (!id) {
             throw new Error('Favor preencher todas as informaçoes')
         }
 
         const clienteVelho = await Clientes.findByPk(id)
 
-         if (!clienteVelho) {
+        if (!clienteVelho) {
             throw new Error(`Produto ${id} não encontrado`)
         }
 
         clienteVelho.nome = nome || clienteVelho.nome // se nao receber nada ele vai salvar o antigo
         clienteVelho.telefone = telefone || clienteVelho.telefone
-       
+
 
         return clienteVelho.save()
     }
 
 
     async Delete(id) {
-         if (!id) {
+        if (!id) {
             throw new Error("Favor informar um ID");
         }
         const cliente = await Clientes.findByPk(id)

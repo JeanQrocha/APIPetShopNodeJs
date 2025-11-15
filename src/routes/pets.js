@@ -4,11 +4,11 @@ import ControllerCachorros from '../controller/pets.js'
 
 const router = express.Router()
 
-router.get('/cachorros', ControllerCachorros.FindAll )
-router.get('/cachorro/:id', ControllerCachorros.FindOne)
-router.post('/cachorro', ControllerCachorros.Create)
-router.put('/cachorro/:id', ControllerCachorros.Update)
-router.delete('/cachorro/:id', ControllerCachorros.Delete)
+router.get('/pets', ControllerCachorros.FindAll )
+router.get('/pet/:id', ControllerCachorros.FindOne)
+router.post('/pet', ControllerCachorros.Create)
+router.put('/pet/:id', ControllerCachorros.Update)
+router.delete('/pet/:id', ControllerCachorros.Delete)
 
 
 export default router

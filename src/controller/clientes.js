@@ -1,13 +1,20 @@
 import ServiceCliente from '../service/clientes.js'
+import models from '../model/models.js'
+
 
 
 class ControllerCliente {
     async FindAll(req, res) {
         try {
-            const cliente = await ServiceCliente.FindAll()
-            res.status(200).send(
-                { data: cliente }
-            )
+            
+            const cliente = await ServiceCliente.FindAll({
+                include: [{
+                    model: models.Pets,
+                    as: 'pets',
+                    attributes: ['id', 'nome', 'raca']
+                }]
+            })
+            res.status(200).send({ cliente })
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
         }
@@ -15,7 +22,13 @@ class ControllerCliente {
     async FindOne(req, res) {
         try {
             const id = req.params.id
-            const cliente = await ServiceCliente.FindOne(id)
+            const cliente = await ServiceCliente.FindOne(id, {
+                include: [{
+                    model: models.Pets,
+                    as: 'pets',
+                    attributes: ['id', 'nome', 'raca']
+                }]
+            })
             res.status(200).send(
                 { data: cliente }
             )
@@ -43,9 +56,9 @@ class ControllerCliente {
 
             await ServiceCliente.Update(id, nome, telefone)
 
-                res.status(200).send(
-                    {msg:'alterado com sucesso'}
-                )
+            res.status(200).send(
+                { msg: 'alterado com sucesso' }
+            )
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
         }
@@ -53,12 +66,10 @@ class ControllerCliente {
     async Delete(req, res) {
         try {
             const id = req.params.id
-            const cliente = await ServiceCliente.Delete(id)
+            await ServiceCliente.Delete(id)
+         
             res.status(204).send(
-                { data: cliente }
-            )
-            res.status(200).send(
-                {msg:'deletado com sucesso'}
+                { msg: 'deletado com sucesso' }
             )
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
