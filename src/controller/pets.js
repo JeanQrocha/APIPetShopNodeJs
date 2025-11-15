@@ -14,7 +14,7 @@ class ControllerPets {
                 }]
             })
             res.status(200).send(
-                { data: pets }
+                { pets: pets }
             )
         } catch (error) {
             res.status(500).send({ msg: error.message })

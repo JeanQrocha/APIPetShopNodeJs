@@ -14,7 +14,8 @@ class Clientes {
             },
 
             telefone: {
-                type: DataBase.db.Sequelize.STRING
+                type: DataBase.db.Sequelize.STRING,
+                unique: true
             }
         });
     }

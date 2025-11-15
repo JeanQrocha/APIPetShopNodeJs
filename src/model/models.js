@@ -1,4 +1,4 @@
-import DataBase from '../config/database.js';
+
 import Pets, { Pets as PetsClass } from "./pets.js";
 import Clientes, { Clientes as ClientesClass } from "./clientes.js";
 
