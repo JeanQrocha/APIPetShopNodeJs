@@ -10,7 +10,7 @@ class ControllerPets {
                 include: [{
                     model: models.Clientes,
                     as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
-                    attributes: ['id', 'nome', 'telefone']
+                    attributes: ['id', 'nome', 'telefone' ,'email']
                 }]
             })
             res.status(200).send(
@@ -27,7 +27,7 @@ class ControllerPets {
                 include: [{
                     model: models.Clientes,
                     as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
-                    attributes: ['id', 'nome', 'telefone']
+                    attributes: ['id', 'nome', 'telefone', 'email']
                 }]
             }
             const pets = await ServicePet.FindOne(id, petData)

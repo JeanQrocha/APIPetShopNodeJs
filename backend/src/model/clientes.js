@@ -16,6 +16,13 @@ class Clientes {
             telefone: {
                 type: DataBase.db.Sequelize.STRING,
                 unique: true
+            },
+            email: {
+                type: DataBase.db.Sequelize.STRING,
+                unique: true
+            },
+            senha: {
+                type: DataBase.db.Sequelize.STRING
             }
         });
     }

@@ -6,7 +6,7 @@ import models from '../model/models.js'
 class ControllerCliente {
     async FindAll(req, res) {
         try {
-            
+
             const cliente = await ServiceCliente.FindAll({
                 include: [{
                     model: models.Pets,
@@ -38,19 +38,19 @@ class ControllerCliente {
     }
     async Create(req, res) {
         try {
-            const { nome, telefone } = req.body
-            await ServiceCliente.Create(nome, telefone)
+            const { nome, telefone, email, senha } = req.body
+            await ServiceCliente.Create(nome, telefone, email, senha)
             res.status(200).send(
                 { msg: 'criado' }
             )
         } catch (error) {
 
-        // verifica se o erro é de violação de unicidade
-        if (error.name === "SequelizeUniqueConstraintError") {
-            return res.status(409).send({
-                msg: "Telefone já está cadastrado!"
-            });
-        }
+            // verifica se o erro é de violação de unicidade
+            if (error.name === "SequelizeUniqueConstraintError") {
+                return res.status(409).send({
+                    msg: "Telefone ou email já está cadastrado!"
+                });
+            }
 
             res.status(500).send({ msg: error.menssage })
         }
@@ -62,20 +62,22 @@ class ControllerCliente {
 
             const nome = req.body?.nome
             const telefone = req.body?.telefone
+            const email = req.body?.email
+            const senha = req.body?.senha
 
-            await ServiceCliente.Update(id, nome, telefone)
+            await ServiceCliente.Update(id, nome, telefone, email, senha)
 
             res.status(200).send(
                 { msg: 'alterado com sucesso' }
             )
         } catch (error) {
 
-        // verifica se o erro é de violação de unicidade
-        if (error.name === "SequelizeUniqueConstraintError") {
-            return res.status(409).send({
-                msg: "Telefone já está cadastrado!"
-            });
-        }
+            // verifica se o erro é de violação de unicidade
+            if (error.name === "SequelizeUniqueConstraintError") {
+                return res.status(409).send({
+                    msg: "Telefone já está cadastrado!"
+                });
+            }
 
             res.status(500).send({ msg: error.menssage })
         }
@@ -84,7 +86,7 @@ class ControllerCliente {
         try {
             const id = req.params.id
             await ServiceCliente.Delete(id)
-         
+
             res.status(204).send(
                 { msg: 'deletado com sucesso' }
             )

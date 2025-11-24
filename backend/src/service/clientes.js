@@ -18,7 +18,7 @@ class ServiceCliente {
         const cliente = await Clientes.findByPk(id, options)
 
         if (!cliente) {
-            throw new Error(`Produto ${id} não encontrado`);
+            throw new Error(`Usuário ${id} não encontrado`);
 
         }
 
@@ -26,30 +26,32 @@ class ServiceCliente {
     }
 
 
-    async Create(nome, telefone) {
-        if (!nome || !telefone) {
+    async Create(nome, telefone, email, senha) {
+        if (!nome || !telefone || !email || !senha) {
             throw new Error("Favor preencher todos os campos");
         }
 
         await Clientes.create({
-            nome, telefone
+            nome, telefone, email, senha
         })
 
     }
 
 
-    async Update(id, nome, telefone) {
+    async Update(id, nome, telefone , email, senha) {
         if (!id) {
             throw new Error('Favor preencher todas as informaçoes')
         }
         const clienteVelho = await Clientes.findByPk(id)
 
         if (!clienteVelho) {
-            throw new Error(`Produto ${id} não encontrado`)
+            throw new Error(`Usuário ${id} não encontrado`)
         }
 
         clienteVelho.nome = nome || clienteVelho.nome // se nao receber nada ele vai salvar o antigo
         clienteVelho.telefone = telefone || clienteVelho.telefone
+        clienteVelho.email = email || clienteVelho.email
+        clienteVelho.senha = senha || clienteVelho.senha
 
 
         return clienteVelho.save()
@@ -63,7 +65,7 @@ class ServiceCliente {
         const cliente = await Clientes.findByPk(id)
 
         if (!cliente) {
-            throw new Error(`Produto ${id} não encontrado`);
+            throw new Error(`Usuário ${id} não encontrado`);
 
         }
 

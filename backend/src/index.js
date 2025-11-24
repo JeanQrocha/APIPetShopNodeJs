@@ -12,7 +12,7 @@ app.use('/api/v1', routerClientes, routerPets)
 const port = 3000
 
 database.db
-    .sync({ force: false })
+    .sync({ force: false }) // recria as tabelas a cada start
     .then(() => {
         app.listen(port, () => {
             console.info(`Servidor rodando na porta: ${port}`)
