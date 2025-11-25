@@ -1,0 +1,8 @@
+footer {
+    background-image: url("/frontend/src/assets/pets-Copia.png");
+    background-size: cover repeat;
+    background-color: #015d88;
+    color: white;
+    text-align: center;
+    padding: 0.5em;
+}

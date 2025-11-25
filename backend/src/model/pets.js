@@ -1,5 +1,5 @@
 import DataBase from "../config/database.js";
-import { Clientes } from "./clientes.js";
+import Clientes from "./clientes.js";
 
 class Pets {
 
@@ -25,25 +25,26 @@ class Pets {
             }
         });
 
-        // this.model.belongsTo (Clientes, { foreignKey: 'clienteId', as: 'owner' });
+        this.model.belongsTo (Clientes, { foreignKey: 'clienteId', as: 'owner' });
+        Clientes.hasMany (this.model, { foreignKey: 'clienteId', as: 'pets' });
     }
 
     // Cada pet pertence a um único cliente
-    static associate(models) {
+    // static associate(models) {
 
-    //     /*
-    //         Aqui criamos a relação:
-    //         Pet -> pertence a -> Cliente
-    //         Alias usado: "owner"
-    //         Assim podemos dar include: [{ model: Clientes, as: 'owner' }]
-    //     */
-        models.Pets.belongsTo(models.Clientes, {
-            foreignKey: "clienteId",
-            as: "owner"
-        });
-    }
+    // //     /*
+    // //         Aqui criamos a relação:
+    // //         Pet -> pertence a -> Cliente
+    // //         Alias usado: "owner"
+    // //         Assim podemos dar include: [{ model: Clientes, as: 'owner' }]
+    // //     */
+    //     models.Pets.belongsTo(models.Clientes, {
+    //         foreignKey: "clienteId",
+    //         as: "owner"
+    //     });
+    // }
 }
 export default new Pets().model;
 
 // Exporta a classe (associações)
-export { Pets };
+// export { Pets };

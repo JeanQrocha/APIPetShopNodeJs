@@ -1,18 +1,12 @@
 import ServicePet from '../service/pets.js'
-import models from '../model/models.js'
+
 
 
 
 class ControllerPets {
     async FindAll(_, res) { //se o parametro nao for usado, colocar _ no lugar
         try {
-            const pets = await ServicePet.FindAll({
-                include: [{
-                    model: models.Clientes,
-                    as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
-                    attributes: ['id', 'nome', 'telefone' ,'email']
-                }]
-            })
+            const pets = await ServicePet.FindAll()
             res.status(200).send(
                 { pets: pets }
             )
@@ -23,14 +17,7 @@ class ControllerPets {
     async FindOne(req, res) {
         try {
             const id = req.params.id
-            const petData = {
-                include: [{
-                    model: models.Clientes,
-                    as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
-                    attributes: ['id', 'nome', 'telefone', 'email']
-                }]
-            }
-            const pets = await ServicePet.FindOne(id, petData)
+            const pets = await ServicePet.FindOne(id)
             res.status(200).send(
                 { data: pets }
             )

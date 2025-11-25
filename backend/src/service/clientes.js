@@ -1,21 +1,34 @@
 import Clientes from '../model/clientes.js'
+import Pets from "../model/pets.js"
 
 
 class ServiceCliente {
-    async FindAll(options = {}) {
+    async FindAll() {
 
-        const clientes = await Clientes.findAll(options);
+        const clientes = await Clientes.findAll({
+                include: [{
+                    model: Pets,
+                    as: 'pets',
+                    attributes: ['id', 'nome', 'raca']
+                }]
+            });
 
         return clientes
 
     }
 
 
-    async FindOne(id, options = {}) {
+    async FindOne(id) {
         if (!id) {
             throw new Error("Favor informar um ID");
         }
-        const cliente = await Clientes.findByPk(id, options)
+        const cliente = await Clientes.findByPk(id, {
+                include: [{
+                    model: Pets,
+                    as: 'pets',
+                    attributes: ['id', 'nome', 'raca']
+                }]
+            })
 
         if (!cliente) {
             throw new Error(`Usuário ${id} não encontrado`);

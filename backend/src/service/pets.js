@@ -1,19 +1,32 @@
 import Pets from '../model/pets.js'
+import Clientes from '../model/clientes.js'
 
 
 class ServicePets {
-    async FindAll(options = {}) {
-        const pets = await Pets.findAll(options);
+    async FindAll() {
+        const pets = await Pets.findAll({
+                include: [{
+                    model: Clientes,
+                    as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
+                    attributes: ['id', 'nome', 'telefone' ,'email']
+                }]
+            });
 
         return pets
     }
 
 
-    async FindOne(id, options = {}) {
-        if (!id || !options) {
+    async FindOne(id) {
+        if (!id) {
             throw new Error("Favor informar um ID");
         }
-        const pets = await Pets.findByPk(id, options)
+        const pets = await Pets.findByPk(id, {
+                include: [{
+                    model: Clientes,
+                    as: 'owner', // Usando o alias definido no Pet.belongsTo(Clientes)
+                    attributes: ['id', 'nome', 'telefone' ,'email']
+                }]
+            })
 
         if (!pets) {
             throw new Error(`Produto ${id} não encontrado`);

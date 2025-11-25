@@ -1,5 +1,4 @@
 import ServiceCliente from '../service/clientes.js'
-import models from '../model/models.js'
 
 
 
@@ -7,13 +6,7 @@ class ControllerCliente {
     async FindAll(req, res) {
         try {
 
-            const cliente = await ServiceCliente.FindAll({
-                include: [{
-                    model: models.Pets,
-                    as: 'pets',
-                    attributes: ['id', 'nome', 'raca']
-                }]
-            })
+            const cliente = await ServiceCliente.FindAll()
             res.status(200).send({ cliente })
         } catch (error) {
             res.status(500).send({ msg: error.menssage })
@@ -22,13 +15,7 @@ class ControllerCliente {
     async FindOne(req, res) {
         try {
             const id = req.params.id
-            const cliente = await ServiceCliente.FindOne(id, {
-                include: [{
-                    model: models.Pets,
-                    as: 'pets',
-                    attributes: ['id', 'nome', 'raca']
-                }]
-            })
+            const cliente = await ServiceCliente.FindOne(id)
             res.status(200).send(
                 { data: cliente }
             )

@@ -29,18 +29,18 @@ class Clientes {
 
     // Método static significa que pertence à classe, não à instância
     // Aqui definimos a associação: Cliente tem MUITOS Pets
-    static associate(models) {
+    // static associate(models) {
 
-        /*
-            Aqui criamos a relação:
-            1 cliente -> vários pets
-            "as: pets" define o alias que será usado no include
-        */
-        models.Clientes.hasMany(models.Pets, {
-            foreignKey: "clienteId", // coluna que relaciona
-            as: "pets"               // nome da associação
-        });
-    }
+    //     /*
+    //         Aqui criamos a relação:
+    //         1 cliente -> vários pets
+    //         "as: pets" define o alias que será usado no include
+    //     */
+    //     models.Clientes.hasMany(models.Pets, {
+    //         foreignKey: "clienteId", // coluna que relaciona
+    //         as: "pets"               // nome da associação
+    //     });
+    // }
 }
 
 export default new Clientes().model;
